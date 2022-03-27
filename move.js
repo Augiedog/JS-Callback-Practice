@@ -30,9 +30,30 @@ function move(element) {
             element.style.left = x + 'px'
             element.style.bottom = y = 'px'
         }
-    setInterval(moveCharacter, 1)
-    
+        setInterval(moveCharacter, 1)
+
+        document.addEventListener('keydown', function(e){
+            if (e.repeat) return
+            if (e.key === 'ArrowLeft'){
+                direction = 'west'
+            }
+            if (e.key === 'ArrowRight'){
+                direction = 'east'
+            }
+            if (e.key === 'ArrowDown'){
+                direction = 'south'
+            }
+            if (e.key === 'ArrowUp'){
+                direction = 'north'
+            }
+            callback(direction)
+        })
+        document.addEventListener('keyup', function(e){
+            direction = null
+            callback(direction)
+        })
     return {
         to: moveToCoordinates
+        withArrowKeys: moveWithKeys
     }
 }
